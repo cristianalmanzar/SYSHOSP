@@ -23,10 +23,12 @@ class DiagnosticoController extends Controller
     {
         $diagnosticos = DB::table('diagnostico')
         ->join('medico', 'diagnostico.medico_id', '=', 'medico.id')
-        ->join('visita_medica', 'diagnostico.visita_medica_id', '=', 'diagnostico.id')
+        ->join('visita_medica', 'diagnostico.visita_medica_id', '=', 'visita_medica.id')
         ->join('enfermedad','diagnostico.enfermedad_id', '=', 'enfermedad.id')
-        ->select( 'diagnostico.id','medico.nombre as mnombre', 'medico.apellido as mapellido', 'medico.id as medico_id ', 'visita_medica.id as visita_id', 'enfermedad.nombre', 'enfermedad.id  as enfermedad_id')
+        ->select( 'diagnostico.id','medico.nombre as mnombre', 'medico.apellido as mapellido', 'medico.id as medico_id ', 'visita_medica.id as visita_id', 'enfermedad.nombre as enfermedad', 'enfermedad.id  as enfermedad_id')
         ->get();
+
+        // $diagnosticos = Diagnostico::all();
 
 
         // $diagnosticos = Diagnostico::all();
@@ -76,7 +78,7 @@ class DiagnosticoController extends Controller
       $diagnostico->enfermedad_id    = $request->enfermedad_id;
       $diagnostico->save();
 
-      return redirect('diagnostico.index')->with('status', 'Diagnostico guardado correctamente!');
+      return redirect('diagnosticos')->with('status', 'Diagnostico guardado correctamente!');
 
     }
 
@@ -95,9 +97,9 @@ class DiagnosticoController extends Controller
         $diagnostico = DB::table('diagnostico')
         ->where('diagnostico.id',$id)
         ->join('medico', 'diagnostico.medico_id', '=', 'medico.id')
-        ->join('visita_medica', 'diagnostico.visita_medica_id', '=', 'diagnostico.id')
+        ->join('visita_medica', 'diagnostico.visita_medica_id', '=', 'visita_medica.id')
         ->join('enfermedad','diagnostico.enfermedad_id', '=', 'enfermedad.id')
-        ->select( 'diagnostico.id','diagnostico.medico_id','medico.nombre as mnombre', 'medico.apellido as mapellido', 'medico.id as medico_id ', 'visita_medica.id as visita_id', 'enfermedad.nombre', 'enfermedad.id  as enfermedad_id')
+        ->select( 'diagnostico.id','diagnostico.medico_id','medico.nombre as mnombre', 'medico.apellido as mapellido', 'medico.id as medico_id ', 'visita_medica.id as visita_id', 'enfermedad.nombre as enfermedad', 'enfermedad.id  as enfermedad_id')
         ->get();
 
         return view('diagnostico.show',[
@@ -126,9 +128,14 @@ class DiagnosticoController extends Controller
      * @param  \App\Diagnostico  $diagnostico
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Diagnostico $diagnostico)
+    public function update(Request $request)
     {
-        //
+        $diagnostico = Diagnostico::find($request->id);
+        $diagnostico->enfermedad_id    = $request->enfermedad_id;
+        $diagnostico->medico_id        = $request->medico_id;
+        $diagnostico->visita_medica_id = $request->visita_medica_id;
+        $diagnostico->save();
+        return redirect('diagnosticos');
     }
 
     /**

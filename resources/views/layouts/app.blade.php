@@ -35,11 +35,11 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
-                    </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                         
+              
+                         @if (Route::has('login'))
+                             @auth
+                        
                             <li class="nav-item">
                             <a class="nav-link" href="/pacientes">Paciente </a>
                             </li>
@@ -64,6 +64,9 @@
                             <li class="nav-item">
                             <a class="nav-link" href="/diagnosticos">Diagnostico</a>
                             </li>
+                        @endauth
+                        @endif
+                    </ul>
                         
                         <!-- Authentication Links -->
                         @guest

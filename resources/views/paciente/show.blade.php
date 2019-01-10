@@ -33,8 +33,8 @@
                             </div>
 
                             <div class="row">
-                                <div class="col" >
-                                    <label for="">Sexo:</label> <br>
+                                {{--  <div class="col" >  --}}
+                                    {{--  <label for="">Sexo:</label> <br>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="sexo"  value="M">
                                         <label class="form-check-label" >
@@ -47,8 +47,8 @@
                                         <label class="form-check-label" for="exampleRadios2">
                                             Femenino
                                         </label>
-                                    </div>
-                                </div>
+                                    </div>  --}}
+                                {{--  </div>  --}}
 
                                 <div class="col">
                                     <div class="">

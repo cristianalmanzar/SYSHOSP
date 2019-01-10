@@ -26,7 +26,7 @@
                                  <tbody>
                                     @foreach($diagnosticos as $diagnostico)
                                      <tr>
-                                        <td>{{$diagnostico->nombre}}</td>
+                                        <td>{{$diagnostico->enfermedad}}</td>
                                         <td>{{$diagnostico->mnombre.' '. $diagnostico->mapellido}}</td>
                                         <td>{{$diagnostico->visita_id}}</td>
                                         <td>

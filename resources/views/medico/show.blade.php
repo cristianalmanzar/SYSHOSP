@@ -34,7 +34,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col" >
+                                {{--  <div class="col" >
                                     <label for="">Sexo:</label> <br>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="sexo"  value="M">
@@ -49,7 +49,7 @@
                                             Femenino
                                         </label>
                                     </div>
-                                </div>
+                                </div>  --}}
 
                                 <div class="col">
                                     <div class="">
@@ -71,7 +71,6 @@
 
 <script>
     $(document).ready(function(){
-        alert("funciona");
     });
 </script>
 <style>

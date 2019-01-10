@@ -42,11 +42,11 @@ class MedicoController extends Controller
     }
 
 
-    public function show(Medico $id)
+    public function show($id)
     {
         $medico = Medico::find($id);
         return view('medico.show',[
-            'medico' => $medico[0]
+            'medico' => $medico
         ]);
     }
 

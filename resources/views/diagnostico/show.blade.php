@@ -13,7 +13,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="">Enfermedad:</label>
-                                      <select class="form-control" name="enfermedad_id" value="{{$diagnostico->nombre}}">
+                                      <select class="form-control" name="enfermedad_id" id="enfermedad" val="{{$diagnostico->enfermedad_id}}">
                                         @foreach($enfermedades as $enfermedad )
                                             <option  value="{{$enfermedad->id}}">{{$enfermedad->nombre }}</option>
                                         @endforeach
@@ -24,7 +24,7 @@
                              <div class="row">
                                 <div class="col-md-6">
                                     <label for="">Medico:</label>
-                                      <select class="form-control" name="enfermedad_id" value="{{$diagnostico->medico_id}}">
+                                      <select class="form-control" name="medico_id" id="medico" val="{{$diagnostico->medico_id}}">
                                         @foreach($medicos as $medico )
                                             <option  value="{{$medico->id}}">{{$medico->nombre }}</option>
                                         @endforeach
@@ -35,7 +35,7 @@
                             <div class="row">
                                 <div class="col">
                                      <label for=""> Visita Medica:</label>
-                                     <select class="form-control" name="medico_id" value="{{$diagnostico->visita_id}}">
+                                     <select class="form-control" name="visita_medica_id" id="visita" val="{{$diagnostico->visita_id}}">
                                         @foreach($visitas as $visita )
                                             <option  value="{{$visita->id}}">{{$visita->id}}</option>
                                         @endforeach
@@ -62,6 +62,14 @@
 
 <script>
     $(document).ready(function(){
+           var enfermedad = $('#enfermedad').attr('val');
+        $('#enfermedad').find('option[value='+enfermedad+ ']').prop('selected', true);
+
+         var medico = $('#medico').attr('val');
+        $('#medico').find('option[value='+medico+ ']').prop('selected', true);
+
+        var visita = $('#visita').attr('val');
+        $('#hora').find('option[value='+''+visita + ''+ ']').prop('selected', true);
 
     });
 </script>
