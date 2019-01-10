@@ -87,9 +87,17 @@ class EnfermedadController extends Controller
      * @param  \App\Enfermedad  $enfermedad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Enfermedad $enfermedad)
+    public function update(Request $request)
     {
-        //
+        $enfermedad = Enfermedad::find($request->id);
+
+        $enfermedad->nombre = $request->nombre;
+        $enfermedad->detalles = $request->detalles;
+        $enfermedad->tratamiento = $request->tratamiento;
+
+        $enfermedad->save();
+
+        return redirect('enfermedades');
     }
 
     /**

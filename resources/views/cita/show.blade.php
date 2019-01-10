@@ -8,7 +8,8 @@
                 <div class="card-header"> Ver cita</div>
 
                 <div class="card-body">
-                        <form>
+                        <form method="POST"  action="/citas/update"> 
+                            @csrf
                             <div class="row">
                                 <div class="col">
                                      <label for="">Medico:</label>
@@ -68,7 +69,7 @@
                             </div>
 
                            
-
+                            <input type="hidden" name="id" value="{{$id}}">
                             <div class="col" style="display:flex; justify-content:flex-end;" >
                                 <button class="btn btn-primary">Guardar</button>
                             </div>

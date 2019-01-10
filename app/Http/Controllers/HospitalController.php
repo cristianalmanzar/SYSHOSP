@@ -86,9 +86,16 @@ class HospitalController extends Controller
      * @param  \App\Hospital  $hospital
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Hospital $hospital)
+    public function update(Request $request)
     {
-        //
+        $hospital = Hospital::find($request->id);
+        $hospital->nombre = $request->nombre;
+        $hospital->lugar = $request->lugar;
+        $hospital->recepcion = $request->recepcion;
+        $hospital->save();
+
+        return redirect('hospitales');
+
     }
 
     /**

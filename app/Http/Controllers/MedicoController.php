@@ -57,9 +57,19 @@ class MedicoController extends Controller
     }
 
 
-    public function update(Request $request, Medico $medico)
+    public function update(Request $request)
     {
-        //
+        $medico = Medico::find($request->id);
+        $medico->nombre   = $request->nombre;    
+        $medico->apellido = $request->apellido;    
+        $medico->telefono = $request->telefono;    
+        $medico->cedula   = $request->cedula;    
+        $medico->direccion = $request->direccion;    
+      
+        $medico->save();
+            
+
+        return redirect('medicos');
     }
 
 

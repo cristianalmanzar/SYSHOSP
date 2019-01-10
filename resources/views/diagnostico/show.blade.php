@@ -8,7 +8,8 @@
                 <div class="card-header"> Crear diagnostico</div>
 
                 <div class="card-body">
-                        <form>
+                        <form method="POST"  action="/diagnosticos/update"> 
+                            @csrf
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="">Enfermedad:</label>
@@ -47,7 +48,7 @@
                           
                             
 
-                           
+                           <input type="hidden" name="id" value="{{$diagnostico->id}}">
 
                             <div class="col" style="display:flex; justify-content:flex-end;" >
                                 <button class="btn btn-primary">Guardar</button>

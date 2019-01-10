@@ -114,16 +114,17 @@ class AdmisionController extends Controller
      */
     public function update(Request $request)
     {
-        $admison = Admision::find($request->id)->update(
-            [
-                'hospital_id' => $request->hospital_id,
-                'visita_medica_id' => $request->visita_medica_id,
-                'habitacion' => $request->habitacion,
-                'hora' => $request->hora,
-                'fecha' => $request->fecha
-            ]);
+        $admison = Admision::find($request->id);
+            
+        $admison->hospital_id = $request->hospital_id;
+        $admison->visita_medica_id = $request->visita_medica_id;
+        $admison->habitacion = $request->habitacion;
+        $admison->hora = $request->hora;
+        $admison->fecha = $request->fecha;
+        $admison->save();
+            
 
-        return $admision;
+        return redirect('admisiones');
     }
 
     /**

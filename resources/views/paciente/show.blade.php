@@ -8,7 +8,8 @@
                 <div class="card-header"> Ver paciente</div>
 
                 <div class="card-body">
-                        <form>
+                       <form method="POST"  action="/pacientes/update"> 
+                            @csrf
                             <div class="row">
                                 <div class="col">
                                      <label for="">Nombre:</label>
@@ -75,7 +76,7 @@
                                 </div>
                                 
                             </div>
-
+                            <input type="hidden" name="id" value="{{$paciente->id}}">
                             <div class="col" style="display:flex; justify-content:flex-end;" >
                                 <button class="btn btn-primary">Guardar</button>
                             </div>

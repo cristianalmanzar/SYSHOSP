@@ -8,7 +8,8 @@
                 <div class="card-header"> Ver visita medica</div>
 
                 <div class="card-body">
-                        <form>
+                         <form method="POST"  action="/visitas/update"> 
+                            @csrf
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="">Consultorio:</label>
@@ -67,8 +68,7 @@
                             </div>
 
                           
-
-                           
+                            <input type="hidden" name="id" value="{{$id}}">
 
                             <div class="col" style="display:flex; justify-content:flex-end;" >
                                 <button class="btn btn-primary">Guardar</button>

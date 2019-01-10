@@ -90,7 +90,7 @@ class VisitaMedicaController extends Controller
             ->join('medico', 'visita_medica.medico_id', '=', 'medico.id')
             ->join('paciente', 'visita_medica.paciente_id', '=', 'paciente.id')
             ->join('hospital', 'visita_medica.hospital_id', '=', 'hospital.id')
-            ->select('visita_medica.*', 'medico.nombre as mnombre', 'medico.apellido as mapellido', 'medico.id', 'paciente.nombre', 'paciente.apellido', 'paciente.id', 'hospital.nombre as hospital')
+            ->select('visita_medica.*', 'medico.nombre as mnombre', 'medico.apellido as mapellido', 'medico.id as medico_id', 'paciente.nombre', 'paciente.apellido', 'paciente.id as paciente_id', 'hospital.nombre as hospital')
             ->get();
 
 
@@ -100,7 +100,8 @@ class VisitaMedicaController extends Controller
             'paciente'    => $visita[0]->nombre .' '. $visita[0]->apellido,
             'hora'        => $visita[0]->hora, 
             'fecha'       => $visita[0]->fecha,
-            'hospital' => $visita[0]->hospital
+            'hospital'    => $visita[0]->hospital,
+            'id'          => $visita[0]->id
         ]);
     }
 
@@ -122,9 +123,13 @@ class VisitaMedicaController extends Controller
      * @param  \App\VisitaMedica  $visitaMedica
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, VisitaMedica $visitaMedica)
+    public function update(Request $request)
     {
-        //
+        $visita = VisitaMedica::find($request->id);
+        $visita->fecha = $request->fecha;
+        $visita->hora  = $request->hora;
+        $visita->save();
+        return redirect('visitas');
     }
 
     /**

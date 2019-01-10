@@ -8,7 +8,8 @@
                 <div class="card-header"> Crear enfermedad</div>
 
                 <div class="card-body">
-                        <form>
+                        <form method="POST"  action="/enfermedades/update"> 
+                            @csrf
                             <div class="row">
                                 <div class="col">
                                      <label for="">Nombre:</label>
@@ -29,7 +30,7 @@
                                 
                             </div>
 
-                           
+                           <input type="hidden" name="id" value="{{$enfermedad->id}}">
 
                             <div class="col" style="display:flex; justify-content:flex-end;" >
                                 <button class="btn btn-primary">Guardar</button>

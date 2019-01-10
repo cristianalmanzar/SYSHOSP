@@ -76,7 +76,7 @@ class CitaController extends Controller
             ->where('cita.id', $id)
             ->join('medico', 'cita.medico_id', '=', 'medico.id')
             ->join('paciente', 'cita.paciente_id', '=', 'paciente.id')
-            ->select('cita.*', 'medico.nombre as mnombre', 'medico.apellido as mapellido', 'medico.id', 'paciente.nombre', 'paciente.apellido', 'paciente.id', 'cita.hora_cita')
+            ->select('cita.*', 'medico.nombre as mnombre', 'medico.apellido as mapellido', 'medico.id as medico_id', 'paciente.nombre', 'paciente.apellido', 'paciente.id as paciente_id', 'cita.hora_cita')
             ->get();
 
 
@@ -86,7 +86,9 @@ class CitaController extends Controller
             'paciente'    => $cita[0]->nombre .' '. $cita[0]->apellido,
             'hora'        => $cita[0]->hora_cita, 
             'fecha'       => $cita[0]->fecha_cita,
-            'consultorio' => $cita[0]->consultorio
+            'consultorio' => $cita[0]->consultorio,
+            'id' => $cita[0]->id,
+            
         ]);
     }
 
@@ -97,9 +99,18 @@ class CitaController extends Controller
     }
 
    
-    public function update(Request $request, Cita $cita)
+    public function update(Request $request)
     {
-        //
+        $cita = Cita::find($request->id);
+            
+        $cita->hora_cita = $request->hora_cita;
+        $cita->fecha_cita = $request->fecha_cita;
+        $cita->consultorio = $request->consultorio;
+      
+        $cita->save();
+            
+
+        return redirect('citas');
     }
 
     

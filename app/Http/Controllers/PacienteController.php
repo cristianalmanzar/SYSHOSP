@@ -92,9 +92,20 @@ class PacienteController extends Controller
      * @param  \App\Paciente  $paciente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Paciente $paciente)
+    public function update(Request $request)
     {
-        //
+        $paciente = Paciente::find($request->id);
+        $paciente->nombre = $request->nombre;
+        $paciente->apellido = $request->apellido;
+        $paciente->telefono = $request->telefono;
+        $paciente->cedula = $request->cedula;
+        $paciente->direccion = $request->direccion;
+        $paciente->ars = $request->ars;
+        $paciente->ars_no = $request->ars_no;
+        $paciente->carnet_paciente = $request->carnet_paciente;
+        $paciente->save();
+
+        return redirect('pacientes');
     }
 
     /**
