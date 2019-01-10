@@ -65,6 +65,11 @@ class VisitaMedicaController extends Controller
      */
     public function store(Request $request)
     {
+        $query  = DB::table('visita_medica')->where("medico_id",$request->medico_id)->where('hora',$request->hora)->count();
+        if($query > 0){
+            return redirect('visitas/crear')->with('status', 'Este horario no esta disponible');
+        }
+
         $visita =  new VisitaMedica();
         $visita->hospital_id      = $request->hospital_id;
         $visita->medico_id        = $request->medico_id;

@@ -57,7 +57,10 @@ class CitaController extends Controller
    
     public function store(Request $request)
     {
-        
+        $query  = DB::table('cita')->where("medico_id",$request->medico_id)->where('hora_cita',$request->hora_cita)->count();
+        if($query > 0){
+            return redirect('citas/crear')->with('status', 'Este horario no esta disponible');
+        }
         $cita =  new Cita();
         $cita->medico_id        = $request->medico_id;
         $cita->paciente_id      = $request->paciente_id;
