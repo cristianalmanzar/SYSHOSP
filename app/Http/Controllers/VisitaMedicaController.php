@@ -47,12 +47,17 @@ class VisitaMedicaController extends Controller
         $medicos    = DB::table('medico')->select("nombre", "apellido", "id")->get();
         $pacientes  = DB::table('paciente')->select("nombre", "apellido","id")->get();
         $hospitales = DB::table('hospital')->select("nombre","id")->get();
+        $citas    = DB::table('cita')
+        ->join('paciente','cita.paciente_id', '=', 'paciente.id')
+        ->select("cita.id",'cita.fecha_cita','paciente.nombre')->get();
+
 
 
         return view('visita_medica.create',[
             'medicos'    => $medicos,
             'pacientes'  => $pacientes,
-            'hospitales' => $hospitales
+            'hospitales' => $hospitales,
+            'citas'      => $citas,
 
         ]);
     }
@@ -65,7 +70,11 @@ class VisitaMedicaController extends Controller
      */
     public function store(Request $request)
     {
-        $query  = DB::table('visita_medica')->where("medico_id",$request->medico_id)->where('hora',$request->hora)->count();
+        $query  = DB::table('visita_medica')
+        ->where("medico_id",$request->medico_id)
+        ->where('hora',$request->hora)
+        ->where('fecha',$request->fecha)
+        ->count();
         if($query > 0){
             return redirect('visitas/crear')->with('status', 'Este horario no esta disponible');
         }
@@ -76,6 +85,7 @@ class VisitaMedicaController extends Controller
         $visita->paciente_id      = $request->paciente_id;
         $visita->hora             = $request->hora;
         $visita->fecha            = $request->fecha;
+        $visita->cita_id          = $request->cita_id;
         $visita->save();
         
 
@@ -95,7 +105,8 @@ class VisitaMedicaController extends Controller
             ->join('medico', 'visita_medica.medico_id', '=', 'medico.id')
             ->join('paciente', 'visita_medica.paciente_id', '=', 'paciente.id')
             ->join('hospital', 'visita_medica.hospital_id', '=', 'hospital.id')
-            ->select('visita_medica.*', 'medico.nombre as mnombre', 'medico.apellido as mapellido', 'medico.id as medico_id', 'paciente.nombre', 'paciente.apellido', 'paciente.id as paciente_id', 'hospital.nombre as hospital')
+            ->join('cita','visita_medica.cita_id','=','cita.id')
+            ->select('visita_medica.*', 'medico.nombre as mnombre', 'medico.apellido as mapellido', 'medico.id as medico_id', 'paciente.nombre', 'paciente.apellido', 'paciente.id as paciente_id', 'hospital.nombre as hospital','cita.id as cid','cita.fecha_cita as fecha_cita')
             ->get();
 
 
@@ -106,7 +117,10 @@ class VisitaMedicaController extends Controller
             'hora'        => $visita[0]->hora, 
             'fecha'       => $visita[0]->fecha,
             'hospital'    => $visita[0]->hospital,
-            'id'          => $visita[0]->id
+            'id'          => $visita[0]->id,
+            'fecha_cita'  => $visita[0]->fecha_cita,
+            'c_id'        => $visita[0]->cid
+
         ]);
     }
 

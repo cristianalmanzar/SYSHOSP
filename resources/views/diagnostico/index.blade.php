@@ -28,7 +28,7 @@
                                      <tr>
                                         <td>{{$diagnostico->enfermedad}}</td>
                                         <td>{{$diagnostico->mnombre.' '. $diagnostico->mapellido}}</td>
-                                        <td>{{$diagnostico->visita_id}}</td>
+                                        <td>{{$diagnostico->pnombre.' '. $diagnostico->papellido}}</td>
                                         <td>
                                             <a href="diagnosticos/{{$diagnostico->id}}"> <button class="btn btn-xs glyphicon glyphicon-user"><i class="far fa-eye"></i></button></a>
                                             <a href="/diagnosticos/delete/{{$diagnostico->id}}">

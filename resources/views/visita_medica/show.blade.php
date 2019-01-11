@@ -67,6 +67,12 @@
                                 
                             </div>
 
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="">Visita Medica:</label>
+                                    <input type="text" name="visita_id" class="form-control" value="{{$paciente .' '.$fecha_cita}}" readonly>
+                                </div>
+                            </div>
                           
                             <input type="hidden" name="id" value="{{$id}}">
 

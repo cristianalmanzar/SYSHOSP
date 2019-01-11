@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header"> Crear cita</div>
+                <div class="card-header"> Crear visita</div>
 
                 <div class="card-body">
                           @if (session('status'))
@@ -82,6 +82,18 @@
                                     <input type="date" name="fecha" class="form-control">
                                 </div>
                                 
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="">Cita:</label>
+                                      <select class="form-control" name="cita_id">
+                                        <option value="0"></option>
+                                        @foreach($citas as $cita )
+                                            <option  value="{{$cita->id}}">{{$cita->nombre.' '. $cita->fecha_cita }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
 
                             

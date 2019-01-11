@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Paciente;
 use Illuminate\Http\Request;
+use \Illuminate\Support\Facades\DB;
+
 
 class PacienteController extends Controller
 {
@@ -42,7 +44,24 @@ class PacienteController extends Controller
      */
     public function store(Request $request)
     {
+        $query  = DB::table('paciente')->where("cedula",$request->cedula)->count();
 
+        if($query > 0){
+            return redirect('pacientes/crear')->with('status', 'Esta cedula ya esta registrada');
+        }
+
+        $query2 = DB::table('paciente')->where("ars_no",$request->ars_no)->count();
+
+        if($query2 > 0){
+            return redirect('pacientes/crear')->with('status', 'El no. ars ya esta registrado');
+        }
+
+        $query3 = DB::table('paciente')->where("carnet_paciente",$request->carnet_paciente)->count();
+
+        if($query3 > 0){
+            return redirect('pacientes/crear')->with('status', 'El carnet esta siendo en uso');
+        }
+        
         $paciente =  new Paciente();
         $paciente->nombre                     = $request->nombre;
         $paciente->apellido                   = $request->apellido;

@@ -25,7 +25,8 @@ class DiagnosticoController extends Controller
         ->join('medico', 'diagnostico.medico_id', '=', 'medico.id')
         ->join('visita_medica', 'diagnostico.visita_medica_id', '=', 'visita_medica.id')
         ->join('enfermedad','diagnostico.enfermedad_id', '=', 'enfermedad.id')
-        ->select( 'diagnostico.id','medico.nombre as mnombre', 'medico.apellido as mapellido', 'medico.id as medico_id ', 'visita_medica.id as visita_id', 'enfermedad.nombre as enfermedad', 'enfermedad.id  as enfermedad_id')
+        ->join('paciente','visita_medica.paciente_id', '=', 'paciente.id')
+        ->select( 'diagnostico.id','medico.nombre as mnombre', 'medico.apellido as mapellido', 'medico.id as medico_id ', 'visita_medica.id as visita_id', 'enfermedad.nombre as enfermedad', 'enfermedad.id  as enfermedad_id', 'paciente.nombre as pnombre', 'paciente.apellido as papellido')
         ->get();
 
         // $diagnosticos = Diagnostico::all();
@@ -99,7 +100,8 @@ class DiagnosticoController extends Controller
         ->join('medico', 'diagnostico.medico_id', '=', 'medico.id')
         ->join('visita_medica', 'diagnostico.visita_medica_id', '=', 'visita_medica.id')
         ->join('enfermedad','diagnostico.enfermedad_id', '=', 'enfermedad.id')
-        ->select( 'diagnostico.id','diagnostico.medico_id','medico.nombre as mnombre', 'medico.apellido as mapellido', 'medico.id as medico_id ', 'visita_medica.id as visita_id', 'enfermedad.nombre as enfermedad', 'enfermedad.id  as enfermedad_id')
+        ->join('paciente','visita_medica.paciente_id', '=', 'paciente.id')
+        ->select( 'diagnostico.id','diagnostico.medico_id','medico.nombre as mnombre', 'medico.apellido as mapellido', 'medico.id as medico_id ', 'visita_medica.id as visita_id', 'enfermedad.nombre as enfermedad', 'enfermedad.id  as enfermedad_id', 'paciente.nombre as pnombre', 'paciente.apellido as papellido')
         ->get();
 
         return view('diagnostico.show',[

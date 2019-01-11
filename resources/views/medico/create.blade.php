@@ -8,6 +8,11 @@
                 <div class="card-header"> Crear Medicos</div>
 
                 <div class="card-body">
+                        @if (session('status'))
+                            <div class="alert alert-danger">
+                                {{ session('status') }}
+                            </div>
+                        @endif
                         <form method="POST"  action="/medicos"> 
                             @csrf
                             <div class="row">

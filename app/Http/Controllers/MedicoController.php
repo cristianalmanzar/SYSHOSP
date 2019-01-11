@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Medico;
 use Illuminate\Http\Request;
+use \Illuminate\Support\Facades\DB;
 
 class MedicoController extends Controller
 {
@@ -27,6 +28,11 @@ class MedicoController extends Controller
 
     public function store(Request $request)
     {
+        $query  = DB::table('medico')->where("cedula",$request->cedula)->count();
+
+        if($query > 0){
+            return redirect('medicos/crear')->with('status', 'Esta cedula ya esta registrada');
+        }
         $medico =  new Medico();
         $medico->nombre           = $request->nombre;
         $medico->apellido = $request->apellido;

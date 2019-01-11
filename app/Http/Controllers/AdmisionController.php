@@ -24,7 +24,8 @@ class AdmisionController extends Controller
         $admisiones = DB::table('admision')
         ->join('hospital', 'admision.hospital_id', '=', 'hospital.id')
         ->join('visita_medica', 'admision.visita_medica_id', '=', 'visita_medica.id')
-        ->select( 'admision.id', 'visita_medica.id as visita_id', 'hospital.nombre as hospital', 'admision.habitacion', 'admision.fecha', 'admision.hora'  )
+        ->join('paciente','visita_medica.paciente_id', '=', 'paciente.id')
+        ->select( 'admision.id', 'visita_medica.id as visita_id', 'hospital.nombre as hospital', 'admision.habitacion', 'admision.fecha', 'admision.hora',  'paciente.nombre as pnombre','paciente.apellido as papellido', 'visita_medica.fecha as vfecha'  )
         ->get();
 
         return view('admision.index',[
@@ -41,7 +42,10 @@ class AdmisionController extends Controller
     public function create()
     {
         $hospitales   = DB::table('hospital')->select("nombre","id")->get();
-        $visitas      = DB::table('visita_medica')->select('id')->get();
+        $visitas      = DB::table('visita_medica')
+        ->join('paciente','visita_medica.paciente_id', '=', 'paciente.id')
+        ->select('visita_medica.id', 'paciente.nombre as nombre', 'paciente.apellido as apellido','visita_medica.fecha' )
+        ->get();
 
         return view('admision.create',[
             'hospitales'      => $hospitales,
@@ -84,13 +88,15 @@ class AdmisionController extends Controller
         ->where('admision.id', $id)
         ->join('hospital', 'admision.hospital_id', '=', 'hospital.id')
         ->join('visita_medica', 'admision.visita_medica_id', '=', 'visita_medica.id')
-        ->select( 'admision.id', 'visita_medica.id as visita_id', 'hospital.nombre as hospital', 'admision.hospital_id as hospital_id', 'admision.habitacion', 'admision.fecha as fecha', 'admision.hora as hora'  )
+        ->join('paciente','visita_medica.paciente_id', '=', 'paciente.id')
+        ->select( 'admision.id', 'visita_medica.id as visita_id', 'hospital.nombre as hospital', 'admision.hospital_id as hospital_id', 'admision.habitacion', 'admision.fecha as fecha', 'admision.hora as hora', 'paciente.nombre as pnombre','paciente.apellido as papellido'  )
         ->get();
 
         return view('admision.show',[
             'admision' => $admision[0],
             'hospitales' => $hospitales,
             'visitas' => $visitas
+            
         ]);
     }
 

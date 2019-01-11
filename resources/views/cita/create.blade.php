@@ -68,7 +68,7 @@
 
                                 <div class="col">
                                     <label for="">Fecha:</label>
-                                    <input type="date" name="fecha_cita" class="form-control">
+                                    <input type="date" name="fecha_cita" class="form-control" required>
                                 </div>
                                 
                             </div>
@@ -78,7 +78,11 @@
                                     <label for="">Consultorio:</label>
                                     <input type="text" name="consultorio" class="form-control" required>
                                 </div>
+
+                             
                             </div>
+
+                                     
 
                            
 

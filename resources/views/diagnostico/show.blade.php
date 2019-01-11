@@ -37,7 +37,7 @@
                                      <label for=""> Visita Medica:</label>
                                      <select class="form-control" name="visita_medica_id" id="visita" val="{{$diagnostico->visita_id}}">
                                         @foreach($visitas as $visita )
-                                            <option  value="{{$visita->id}}">{{$visita->id}}</option>
+                                            <option  value="{{$visita->id}}">{{$diagnostico->pnombre.' '. $diagnostico->papellido}}</option>
                                         @endforeach
                                     </select>
                                 </div>

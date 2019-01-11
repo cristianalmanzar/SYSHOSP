@@ -34,7 +34,7 @@
                                     @foreach($admisiones as $admision)
                                      <tr>
                                         <td>{{$admision->hospital}}</td>
-                                        <td>{{$admision->visita_id}}</td>
+                                        <td>{{$admision->pnombre.' '. $admision->papellido}}</td>
                                         <td>{{$admision->habitacion}}</td>
                                         <td>{{$admision->hora}}</td>
                                         <td>{{$admision->fecha}}</td>
